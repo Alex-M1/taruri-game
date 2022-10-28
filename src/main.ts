@@ -7,7 +7,8 @@ import LoadingScene from './scenes/LoadingScene';
 
 window.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-new
-  new Game({ width: 700, height: 700, scenes: [LoadingScene] });
+  const game = new Game({ width: 700, height: 700 });
+  game.run();
 });
 
 // async function greet() {
