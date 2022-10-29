@@ -1,44 +1,57 @@
-import { ImageNames } from '../constants/images';
+import { ImageNames, PersonAnimateLayers } from '../constants/images';
 import Game from '../Engine/Game';
 import Scene from '../Engine/Scene';
-import Sprite from '../Engine/sprites/Sprite';
 import SpriteAnimation from '../Engine/sprites/SpriteAnimation';
 import SpriteSheet from '../Engine/sprites/SpriteSheet';
+import mapData from '../assets/tilemaps/village.json';
+import PersonSheet from '../classes/PersonSheet';
 
 export default class VillageScene extends Scene {
   game: Game;
-  tiles: SpriteSheet;
-  sprite: Sprite;
-  characterSprites: SpriteSheet;
+
+  basetiles: SpriteSheet;
+  tilesAddWork: SpriteSheet;
+  watertiles: SpriteSheet;
+
+  characterSprites: PersonSheet;
   character: SpriteAnimation;
   constructor(game: Game) {
     super(game);
     this.game = game;
-    this.tiles = new SpriteSheet({
+
+    this.basetiles = new SpriteSheet({
       imageName: ImageNames.basetiles,
       imageWidth: 256,
       imageHeight: 4256,
       spriteHeight: 32,
       spriteWidth: 32,
     });
-    //! !!!
-    this.sprite = this.tiles.getSprite(500);
-    this.sprite.setXY(10, 10);
-
-    this.characterSprites = new SpriteSheet({
-      imageName: ImageNames.character_sprites,
-      imageWidth: 1095,
-      imageHeight: 2032,
-      spriteWidth: 64,
-      spriteHeight: 64,
+    this.tilesAddWork = new SpriteSheet({
+      imageName: ImageNames.addwork,
+      imageWidth: 384,
+      imageHeight: 2048,
+      spriteHeight: 32,
+      spriteWidth: 32,
+    });
+    this.watertiles = new SpriteSheet({
+      imageName: ImageNames.water,
+      imageWidth: 256,
+      imageHeight: 192,
+      spriteHeight: 32,
+      spriteWidth: 32,
     });
 
-    this.character = this.characterSprites.getAnimation([1, 2, 3, 4, 5, 6, 7], 150);
-    this.character.setXY(39, 30);
+    this.characterSprites = new PersonSheet({
+      imageName: ImageNames.character_sprites,
+    });
+
+    this.character = this.characterSprites.getPersonAnimation(PersonAnimateLayers.walk_down, 150);
+    this.character.setXY(39, 500);
   }
 
   init(): void {
     super.init();
+    this.map = this.game.screen.createTileMap('level1', mapData, [this.watertiles, this.basetiles, this.tilesAddWork]);
   }
 
   update(time: number) {
@@ -48,7 +61,7 @@ export default class VillageScene extends Scene {
   render(time: number): void {
     this.update(time);
     this.game.screen.fill('#000');
-    this.game.screen.drawSprite(this.sprite);
+    this.game.screen.drawSprite(this.map);
     this.game.screen.drawSprite(this.character);
     super.render(time);
   }

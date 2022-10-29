@@ -23,6 +23,8 @@
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
     "guard-for-in": "off",
+    "one-var": "off",
+    "one-var-declaration-per-line": "off",
     "import/no-cycle": [
       "error",
       {

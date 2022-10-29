@@ -22,6 +22,8 @@ export default class Game {
       [ImageNames.menu_button]: IMAGES_PATH.menu_button,
       [ImageNames.basetiles]: IMAGES_PATH.basetiles,
       [ImageNames.character_sprites]: IMAGES_PATH.character_sprites,
+      [ImageNames.addwork]: IMAGES_PATH.addwork,
+      [ImageNames.water]: IMAGES_PATH.water,
     });
 
     this.scenes = {

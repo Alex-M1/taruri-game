@@ -1,4 +1,5 @@
 import Sprite from './Sprite';
+import { FrameType, SpriteAnimationConstructor } from './spritesType';
 
 export default class SpriteAnimation extends Sprite {
   frames: Array<FrameType>;
@@ -42,8 +43,10 @@ export default class SpriteAnimation extends Sprite {
   }
 
   run() {
-    this.setFrame(0);
-    this.running = true;
+    if (!this.running) {
+      this.setFrame(0);
+      this.running = true;
+    }
   }
 
   stop() {
@@ -70,22 +73,7 @@ export default class SpriteAnimation extends Sprite {
     }
     if ((time - this.lastTime) > this.speed) {
       this.nextFrame();
-      this.lastTime += this.speed;
+      this.lastTime = time;
     }
   }
-}
-
-export interface FrameType {
-  sx: number;
-  sy: number;
-}
-
-export interface SpriteAnimationConstructor {
-  imageName: string;
-  frames: any;
-  speed: number;
-  repeat: boolean;
-  autorun: boolean;
-  width: number;
-  height: number;
 }

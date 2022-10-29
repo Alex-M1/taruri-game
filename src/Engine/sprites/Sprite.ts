@@ -1,3 +1,5 @@
+import { SpriteConstructor } from './spritesType';
+
 export default class Sprite {
   imageName: string;
   sourceX: number;
@@ -23,12 +25,4 @@ export default class Sprite {
     this.x = x;
     this.y = y;
   }
-}
-
-export interface SpriteConstructor {
-  imageName: string;
-  sourceX: number;
-  sourceY: number;
-  width: number;
-  height: number;
 }

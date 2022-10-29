@@ -1,5 +1,6 @@
 import Sprite from './Sprite';
 import SpriteAnimation from './SpriteAnimation';
+import { SpriteSheetConstructor } from './spritesType';
 
 export default class SpriteSheet {
   imageName: string;
@@ -46,12 +47,4 @@ export default class SpriteSheet {
   getSourceY(index: number): number {
     return Math.trunc(((index - 1) * this.spriteWidth) / this.imageWidth) * this.spriteHeight;
   }
-}
-
-export interface SpriteSheetConstructor {
-  imageName: string;
-  imageWidth: number;
-  imageHeight: number;
-  spriteWidth: number;
-  spriteHeight: number;
 }
