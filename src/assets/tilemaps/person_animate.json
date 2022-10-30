@@ -112,7 +112,7 @@
          "name":"walk_up",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":13,
          "x":0,
          "y":0
@@ -125,7 +125,7 @@
          "name":"walk_left",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":13,
          "x":0,
          "y":0
@@ -138,7 +138,7 @@
          "name":"walk_down",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":13,
          "x":0,
          "y":0
@@ -155,8 +155,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":1,
+ "nextlayerid":14,
+ "nextobjectid":2,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
@@ -165,7 +165,7 @@
         {
          "columns":24,
          "firstgid":1,
-         "image":"..\/..\/..\/clear-game\/src\/assets\/sprites\/character_sprites.png",
+         "image":"..\/sprites\/character_sprites.png",
          "imageheight":2112,
          "imagewidth":1536,
          "margin":0,

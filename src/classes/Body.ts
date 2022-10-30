@@ -12,6 +12,12 @@ export default class Body {
   lastTime: number;
   animations: Record<string, SpriteAnimation>;
   view: SpriteAnimation;
+  collisionShape: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
   constructor({ imageName, speed }: { imageName: string, speed: number }) {
     this.x = 0;
     this.y = 0;
@@ -20,6 +26,10 @@ export default class Body {
     this.lastTime = 0;
     this.animations = {} as Record<string, SpriteAnimation>;
     this.view = {} as SpriteAnimation;
+
+    this.collisionShape = {
+      x: 12, y: 32, width: 28, height: 31,
+    };
 
     const animationSheet = new PersonSheet({ imageName });
     PERSON_ANIMATIONS_ARR.forEach((name) => {

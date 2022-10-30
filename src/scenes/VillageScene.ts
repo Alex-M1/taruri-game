@@ -6,6 +6,7 @@ import mapData from '../assets/tilemaps/village.json';
 import Player from '../classes/Player';
 import Camera from '../Engine/scene/Camera';
 import TileMap from '../Engine/sprites/TileMap';
+import Collisions from '../Engine/physics/Collisions';
 
 export default class VillageScene extends Scene {
   game: Game;
@@ -15,6 +16,7 @@ export default class VillageScene extends Scene {
   watertiles: SpriteSheet;
   mainCamera: Camera | null;
   map: TileMap | null;
+  collisions: Collisions;
 
   player: Player;
   constructor(game: Game) {
@@ -46,7 +48,9 @@ export default class VillageScene extends Scene {
 
     this.player = new Player(this.game.control);
     this.player.x = 100;
-    this.player.y = 100;
+    this.player.y = 300;
+
+    this.collisions = new Collisions();
   }
 
   init(): void {
@@ -60,6 +64,9 @@ export default class VillageScene extends Scene {
     });
     this.mainCamera.watch(this.player);
     this.game.screen.setCamera(this.mainCamera);
+
+    this.collisions.addStaticShapes(mapData);
+    this.collisions.addKinematicBody(this.player);
   }
 
   update(time: number) {
@@ -72,6 +79,7 @@ export default class VillageScene extends Scene {
     this.game.screen.fill('#000');
     this.game.screen.drawSprite(this.map as TileMap);
     this.game.screen.drawSprite(this.player.view);
+    this.collisions.update(time);
     super.render(time);
   }
 }
