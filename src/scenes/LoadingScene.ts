@@ -1,5 +1,5 @@
 import Game from '../Engine/Game';
-import Scene from '../Engine/Scene';
+import Scene from '../Engine/scene/Scene';
 
 export default class LoadingScene extends Scene {
   loadedAt: number;

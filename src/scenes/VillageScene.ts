@@ -1,10 +1,11 @@
-import { ImageNames, PersonAnimateLayers } from '../constants/images';
+import { ImageNames } from '../constants/images';
 import Game from '../Engine/Game';
-import Scene from '../Engine/Scene';
-import SpriteAnimation from '../Engine/sprites/SpriteAnimation';
+import Scene from '../Engine/scene/Scene';
 import SpriteSheet from '../Engine/sprites/SpriteSheet';
 import mapData from '../assets/tilemaps/village.json';
-import PersonSheet from '../classes/PersonSheet';
+import Player from '../classes/Player';
+import Camera from '../Engine/scene/Camera';
+import TileMap from '../Engine/sprites/TileMap';
 
 export default class VillageScene extends Scene {
   game: Game;
@@ -12,13 +13,13 @@ export default class VillageScene extends Scene {
   basetiles: SpriteSheet;
   tilesAddWork: SpriteSheet;
   watertiles: SpriteSheet;
+  mainCamera: Camera | null;
+  map: TileMap | null;
 
-  characterSprites: PersonSheet;
-  character: SpriteAnimation;
+  player: Player;
   constructor(game: Game) {
     super(game);
     this.game = game;
-
     this.basetiles = new SpriteSheet({
       imageName: ImageNames.basetiles,
       imageWidth: 256,
@@ -40,29 +41,37 @@ export default class VillageScene extends Scene {
       spriteHeight: 32,
       spriteWidth: 32,
     });
+    this.map = null;
+    this.mainCamera = null;
 
-    this.characterSprites = new PersonSheet({
-      imageName: ImageNames.character_sprites,
-    });
-
-    this.character = this.characterSprites.getPersonAnimation(PersonAnimateLayers.walk_down, 150);
-    this.character.setXY(39, 500);
+    this.player = new Player(this.game.control);
+    this.player.x = 100;
+    this.player.y = 100;
   }
 
   init(): void {
     super.init();
     this.map = this.game.screen.createTileMap('level1', mapData, [this.watertiles, this.basetiles, this.tilesAddWork]);
+    this.mainCamera = new Camera({
+      width: this.game.screen.width,
+      height: this.game.screen.height,
+      limitX: this.map.width - this.game.screen.width,
+      limitY: this.map.height - this.game.screen.height,
+    });
+    this.mainCamera.watch(this.player);
+    this.game.screen.setCamera(this.mainCamera);
   }
 
   update(time: number) {
-    this.character.update(time);
+    this.player.update(time);
+    this.mainCamera?.update(time);
   }
 
   render(time: number): void {
     this.update(time);
     this.game.screen.fill('#000');
-    this.game.screen.drawSprite(this.map);
-    this.game.screen.drawSprite(this.character);
+    this.game.screen.drawSprite(this.map as TileMap);
+    this.game.screen.drawSprite(this.player.view);
     super.render(time);
   }
 }

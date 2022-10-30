@@ -1,5 +1,6 @@
 import { IS_ENV } from '../constants/constants';
 import ImageLoader from './ImageLoader';
+import Camera from './scene/Camera';
 import Sprite from './sprites/Sprite';
 import SpriteSheet from './sprites/SpriteSheet';
 import { Tiled } from './sprites/spritesType';
@@ -12,6 +13,8 @@ export default class Screen {
   readonly ctx: CanvasRenderingContext2D;
   images: Record<string, HTMLImageElement>;
   isImagesLoaded: boolean;
+  camera: Camera | null;
+  isCameraSet: boolean;
 
   constructor(width: number, height: number) {
     this.width = width;
@@ -21,6 +24,14 @@ export default class Screen {
 
     this.images = {};
     this.isImagesLoaded = false;
+
+    this.camera = null;
+    this.isCameraSet = false;
+  }
+
+  setCamera(camera: Camera) {
+    this.camera = camera;
+    this.isCameraSet = true;
   }
 
   loadImages(imagefiles: any) {
@@ -61,16 +72,38 @@ export default class Screen {
   }
 
   drawSprite(sprite: Sprite) {
+    let spriteX = sprite.x;
+    let spriteY = sprite.y;
+
+    if (this.isCameraSet) {
+      spriteX -= (this.camera as Camera).x;
+      spriteY -= (this.camera as Camera).y;
+    }
+
+    // игнорировать отрисовку спрайта когда он выходит за границы экрана
+    if (
+      (spriteX >= this.width)
+      || (spriteY >= this.height)
+      || ((spriteX + sprite.width) <= 0)
+      || ((spriteY + sprite.height) <= 0)
+    ) return;
+
+    // отрисовка только видимой части спрайта
+    const sourceX = sprite.sourceX + Math.abs(Math.min(0, spriteX));
+    const sourceY = sprite.sourceY + Math.abs(Math.min(0, spriteY));
+    const width = Math.min(this.width, spriteX + sprite.width) - Math.max(0, spriteX);
+    const height = Math.min(this.height, spriteY + sprite.height) - Math.max(0, spriteY);
+
     this.ctx.drawImage(
       this.images[sprite.imageName],
-      sprite.sourceX,
-      sprite.sourceY,
-      sprite.width,
-      sprite.height,
-      sprite.x,
-      sprite.y,
-      sprite.width,
-      sprite.height,
+      sourceX,
+      sourceY,
+      width,
+      height,
+      Math.max(0, spriteX),
+      Math.max(0, spriteY),
+      width,
+      height,
     );
   }
 

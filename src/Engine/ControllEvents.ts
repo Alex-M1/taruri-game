@@ -23,7 +23,6 @@ export default class ControllEvents {
       event.preventDefault();
       event.stopPropagation();
       this[this.keyMap.get(event.keyCode)] = pressed;
-      console.log(this);
     }
   }
 }

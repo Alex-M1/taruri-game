@@ -4,7 +4,7 @@ import LoadingScene from '../scenes/LoadingScene';
 import MenuScene from '../scenes/MenuScene';
 import VillageScene from '../scenes/VillageScene';
 import ControllEvents from './ControllEvents';
-import Scene from './Scene';
+import Scene from './scene/Scene';
 import Screen from './Screen';
 
 export default class Game {
@@ -15,6 +15,7 @@ export default class Game {
 
   constructor({ height = 640, width = 640 }: GameOptions) {
     this.screen = new Screen(width, height);
+    this.control = new ControllEvents();
 
     this.screen.loadImages({
       [ImageNames.cross_menu]: IMAGES_PATH.cross_menu,
@@ -33,7 +34,6 @@ export default class Game {
     };
     this.currentScene = this.scenes.loading;
     this.currentScene.init();
-    this.control = new ControllEvents();
   }
 
   changeScene(status: string) {
@@ -52,6 +52,7 @@ export default class Game {
       this.currentScene.init();
     }
     this.currentScene.render(time);
+    this.control = new ControllEvents();
     requestAnimationFrame((time) => this.frame(time));
   }
 

@@ -32,3 +32,5 @@ export enum PersonAnimateLayers {
   walk_down = 'walk_down',
   walk_right = 'walk_right',
 }
+
+export const PERSON_ANIMATIONS_ARR = <Array<PersonAnimateLayers>>Object.keys(PersonAnimateLayers);
