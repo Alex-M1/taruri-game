@@ -1,9 +1,10 @@
 import { ImageNames } from '../constants/images';
+import { SceneNames } from '../constants/scenes';
 import Scene from '../Engine/scene/Scene';
 
 export default class MenuScene extends Scene {
   constructor(game) {
-    super(game);
+    super(game, SceneNames.menu);
   }
 
   init() {

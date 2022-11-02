@@ -1,10 +1,11 @@
+import { SceneNames } from '../constants/scenes';
 import Game from '../Engine/Game';
 import Scene from '../Engine/scene/Scene';
 
 export default class LoadingScene extends Scene {
   loadedAt: number;
   constructor(game: Game) {
-    super(game);
+    super(game, SceneNames.loading);
     this.loadedAt = 0;
   }
   init(): void {

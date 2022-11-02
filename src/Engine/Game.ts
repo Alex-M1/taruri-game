@@ -1,19 +1,15 @@
 import { ImageNames, IMAGES_PATH } from '../constants/images';
-import { SceneNames } from '../constants/scenes';
-import LoadingScene from '../scenes/LoadingScene';
-import MenuScene from '../scenes/MenuScene';
-import VillageScene from '../scenes/VillageScene';
 import ControllEvents from './ControllEvents';
 import Scene from './scene/Scene';
 import Screen from './Screen';
 
-export default class Game {
+export default class Game<Scenes extends typeof Scene = typeof Scene> {
   screen: Screen;
-  scenes: ScenesType;
+  scenes: Map<string, Scene>;
   currentScene: Scene;
   control: ControllEvents;
 
-  constructor({ height = 640, width = 640 }: GameOptions) {
+  constructor({ height = 640, width = 640, scenes }: GameOptions<Scenes>) {
     this.screen = new Screen(width, height);
     this.control = new ControllEvents();
 
@@ -27,22 +23,18 @@ export default class Game {
       [ImageNames.water]: IMAGES_PATH.water,
     });
 
-    this.scenes = {
-      [SceneNames.loading]: new LoadingScene(this),
-      [SceneNames.menu]: new MenuScene(this),
-      [SceneNames.village]: new VillageScene(this),
-    };
-    this.currentScene = this.scenes.loading;
+    this.scenes = this.configScenes(scenes);
+    this.currentScene = this.scenes.get('loading') as Scene;
     this.currentScene.init();
   }
 
-  changeScene(status: string) {
+  changeScene(status: string): Scene {
     switch (status) {
       case Scene.LOADED:
-        return this.scenes.menu;
+        return this.scenes.get('menu') as Scene;
       case Scene.START_GAME:
-        return this.scenes.village;
-      default: return this.scenes.menu;
+        return this.scenes.get('village') as Scene;
+      default: return this.scenes.get('menu') as Scene;
     }
   }
 
@@ -59,13 +51,20 @@ export default class Game {
   run() {
     requestAnimationFrame((time) => this.frame(time));
   }
+
+  private configScenes(scenes: ScenesType): Map<string, Scene> {
+    const scenesArr: Array<[string, Scene]> = scenes.map((Scene) => {
+      const scene = new Scene(this, '');
+      return [scene.name, scene];
+    });
+    return new Map(scenesArr);
+  }
 }
 
-export interface GameOptions {
+export interface GameOptions<Scenes extends typeof Scene = typeof Scene> {
   width: number;
   height: number;
+  scenes: ScenesType<Scenes>
 }
 
-export interface ScenesType {
-  [key: string]: Scene
-}
+type ScenesType<Scenes extends typeof Scene = typeof Scene> = Array<Scenes>

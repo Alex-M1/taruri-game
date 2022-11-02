@@ -5,12 +5,14 @@ export default class Scene {
   isActive: boolean;
   nextScene: string;
   status: string;
+  name: string;
 
-  constructor(game: Game) {
+  constructor(game: Game, name: string) {
     this.game = game;
     this.isActive = true;
     this.nextScene = '';
     this.status = Scene.WORKING;
+    this.name = name;
   }
 
   static get WORKING() { return 'WORKING'; }
