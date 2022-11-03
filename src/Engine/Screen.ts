@@ -15,12 +15,15 @@ export default class Screen {
   isImagesLoaded: boolean;
   camera: Camera | null;
   isCameraSet: boolean;
+  load: Loader;
 
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
     this.canvas = this.createCanvas();
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    this.load = new Loader();
 
     this.images = {};
     this.isImagesLoaded = false;

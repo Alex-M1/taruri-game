@@ -1,9 +1,23 @@
+/* eslint-disable no-dupe-class-members */
 export default class Loader {
-  imageFiles: Record<string, string>;
-  images: Record<string, HTMLImageElement>;
-  constructor(imageFiles: any) {
-    this.imageFiles = imageFiles;
-    this.images = {};
+  loadedImages: Record<string, HTMLImageElement>;
+
+  constructor() {
+    this.loadedImages = {};
+  }
+
+  images(imagesFile: Record<string, string>): void
+  images(name: string, src: string): void
+  images(image: Record<string, string> | string, src?: string): void {
+    if (typeof image === 'string') {
+      console.log(1);
+    } else {
+      const promises = [];
+      for (const name in image) {
+        promises.push(this.loadImage(name, image[name]));
+      }
+      // return Promise.all(promises);
+    }
   }
 
   load() {
@@ -17,7 +31,7 @@ export default class Loader {
   private loadImage(name: string, src: string) {
     return new Promise((resolve) => {
       const image = new Image();
-      this.images[name] = image;
+      this.loadedImages[name] = image;
       image.onload = () => resolve(name);
       image.src = src;
     });
