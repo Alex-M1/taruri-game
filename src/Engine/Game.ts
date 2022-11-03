@@ -24,7 +24,7 @@ export default class Game<Scenes extends typeof Scene = typeof Scene> {
     });
 
     this.scenes = this.configScenes(scenes);
-    this.currentScene = this.scenes.get('loading') as Scene;
+    this.currentScene = new scenes[0](this, '');
     this.currentScene.init();
   }
 

@@ -1,5 +1,5 @@
 import { IS_ENV } from '../constants/constants';
-import ImageLoader from './ImageLoader';
+import Loader from './scene/Loader';
 import Camera from './scene/Camera';
 import Sprite from './sprites/Sprite';
 import SpriteSheet from './sprites/SpriteSheet';
@@ -35,7 +35,7 @@ export default class Screen {
   }
 
   loadImages(imagefiles: any) {
-    const loader = new ImageLoader(imagefiles);
+    const loader = new Loader(imagefiles);
     loader.load().then(() => {
       this.images = Object.assign(this.images, loader.images);
       this.isImagesLoaded = true;
