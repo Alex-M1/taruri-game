@@ -1,9 +1,10 @@
 import { ImageNames } from '../constants/images';
 import { SceneNames } from '../constants/scenes';
+import Game from '../Engine/Game';
 import Scene from '../Engine/scene/Scene';
 
 export default class MenuScene extends Scene {
-  constructor(game) {
+  constructor(game: Game) {
     super(game, SceneNames.menu);
   }
 
@@ -13,7 +14,7 @@ export default class MenuScene extends Scene {
 
   update(time: number) {
     if (this.game.control.fire) {
-      this.finish(Scene.START_GAME);
+      this.game.nextScene(SceneNames.village);
     }
   }
 

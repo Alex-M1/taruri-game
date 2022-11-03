@@ -28,21 +28,17 @@ export default class Game<Scenes extends typeof Scene = typeof Scene> {
     this.currentScene.init();
   }
 
-  changeScene(status: string): Scene {
-    switch (status) {
-      case Scene.LOADED:
-        return this.scenes.get('menu') as Scene;
-      case Scene.START_GAME:
-        return this.scenes.get('village') as Scene;
-      default: return this.scenes.get('menu') as Scene;
+  nextScene(name: string) {
+    const scene = this.scenes.get(name);
+    if (scene) {
+      this.currentScene = scene;
+      this.currentScene.init();
+    } else {
+      throw new Error('Wrong scene name');
     }
   }
 
   frame(time: number) {
-    if (this.currentScene.status !== Scene.WORKING) {
-      this.currentScene = this.changeScene(this.currentScene.status);
-      this.currentScene.init();
-    }
     this.currentScene.render(time);
     this.control = new ControllEvents();
     requestAnimationFrame((time) => this.frame(time));

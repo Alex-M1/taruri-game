@@ -17,7 +17,7 @@ export default class LoadingScene extends Scene {
       this.loadedAt = time;
     }
     if (this.loadedAt !== 0 && (time - this.loadedAt) > 1000) {
-      this.finish(Scene.LOADED);
+      this.game.nextScene(SceneNames.menu);
     }
   }
 
