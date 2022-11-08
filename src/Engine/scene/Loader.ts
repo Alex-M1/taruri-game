@@ -1,4 +1,4 @@
-export default class ImageLoader {
+export default class Loader {
   imageFiles: Record<string, string>;
   images: Record<string, HTMLImageElement>;
   constructor(imageFiles: any) {

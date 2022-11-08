@@ -1,10 +1,11 @@
+import { SceneNames } from '../constants/scenes';
 import Game from '../Engine/Game';
 import Scene from '../Engine/scene/Scene';
 
 export default class LoadingScene extends Scene {
   loadedAt: number;
   constructor(game: Game) {
-    super(game);
+    super(game, SceneNames.loading);
     this.loadedAt = 0;
   }
   init(): void {
@@ -16,7 +17,7 @@ export default class LoadingScene extends Scene {
       this.loadedAt = time;
     }
     if (this.loadedAt !== 0 && (time - this.loadedAt) > 1000) {
-      this.finish(Scene.LOADED);
+      this.game.nextScene(SceneNames.menu);
     }
   }
 

@@ -7,6 +7,7 @@ import Player from '../classes/Player';
 import Camera from '../Engine/scene/Camera';
 import TileMap from '../Engine/sprites/TileMap';
 import Collisions from '../Engine/physics/Collisions';
+import { SceneNames } from '../constants/scenes';
 
 export default class VillageScene extends Scene {
   game: Game;
@@ -20,7 +21,7 @@ export default class VillageScene extends Scene {
 
   player: Player;
   constructor(game: Game) {
-    super(game);
+    super(game, SceneNames.village);
     this.game = game;
     this.basetiles = new SpriteSheet({
       imageName: ImageNames.basetiles,
