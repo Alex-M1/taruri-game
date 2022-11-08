@@ -57,6 +57,7 @@ export default class VillageScene extends Scene {
   init(): void {
     super.init();
     this.map = this.game.screen.createTileMap('level1', mapData, [this.watertiles, this.basetiles, this.tilesAddWork]);
+
     this.mainCamera = new Camera({
       width: this.game.screen.width,
       height: this.game.screen.height,

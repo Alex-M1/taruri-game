@@ -149,9 +149,12 @@ export default class Screen {
         })));
       }
     });
-    this.game.loader.setImage({ name, image: mapImage });
-    // this.images[name] = mapImage;
-    console.log(this.game.loader.images);
+
+    const image = new Image();
+    image.src = mapImage.toDataURL();
+
+    this.game.loader.setImage({ name, image });
+
     return new TileMap({
       imageName: name,
       sourceX: 0,

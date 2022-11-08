@@ -25,7 +25,7 @@
 // }
 
 export default class Loader {
-  private imagesObj: Record<string, HTMLImageElement | HTMLCanvasElement | undefined>;
+  private imagesObj: Record<string, HTMLImageElement | undefined>;
 
   constructor() {
     this.imagesObj = {};
