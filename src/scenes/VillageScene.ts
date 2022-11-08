@@ -1,5 +1,5 @@
 import { ImageNames } from '../constants/images';
-import Game from '../Engine/Game';
+import Game from '../Engine/game/Game';
 import Scene from '../Engine/scene/Scene';
 import SpriteSheet from '../Engine/sprites/SpriteSheet';
 import mapData from '../assets/tilemaps/village.json';
