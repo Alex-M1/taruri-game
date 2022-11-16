@@ -1,6 +1,6 @@
-import { ImageNames, IMAGES_PATH } from '../constants/images';
-import ControllEvents from './ControllEvents';
-import Scene from './scene/Scene';
+import ControllEvents from '../ControllEvents';
+import Scene from '../scene/Scene';
+import Loader from './Loader';
 import Screen from './Screen';
 
 export default class Game<Scenes extends typeof Scene = typeof Scene> {
@@ -8,20 +8,12 @@ export default class Game<Scenes extends typeof Scene = typeof Scene> {
   scenes: Map<string, Scene>;
   currentScene: Scene;
   control: ControllEvents;
+  loader: Loader;
 
   constructor({ height = 640, width = 640, scenes }: GameOptions<Scenes>) {
-    this.screen = new Screen(width, height);
+    this.screen = new Screen(width, height, this);
     this.control = new ControllEvents();
-
-    this.screen.loadImages({
-      [ImageNames.cross_menu]: IMAGES_PATH.cross_menu,
-      [ImageNames.menu_bg]: IMAGES_PATH.menu_bg,
-      [ImageNames.menu_button]: IMAGES_PATH.menu_button,
-      [ImageNames.basetiles]: IMAGES_PATH.basetiles,
-      [ImageNames.character_sprites]: IMAGES_PATH.character_sprites,
-      [ImageNames.addwork]: IMAGES_PATH.addwork,
-      [ImageNames.water]: IMAGES_PATH.water,
-    });
+    this.loader = new Loader();
 
     this.scenes = this.configScenes(scenes);
     this.currentScene = new scenes[0](this, '');

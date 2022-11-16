@@ -38,5 +38,7 @@ export default class Vector {
         this.y = 0;
         break;
     }
+
+    this.direction = direction;
   }
 }

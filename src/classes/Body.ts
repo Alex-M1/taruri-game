@@ -18,6 +18,7 @@ export default class Body {
     width: number;
     height: number;
   };
+
   constructor({ imageName, speed }: { imageName: string, speed: number }) {
     this.x = 0;
     this.y = 0;
@@ -32,9 +33,11 @@ export default class Body {
     };
 
     const animationSheet = new PersonSheet({ imageName });
+
     PERSON_ANIMATIONS_ARR.forEach((name) => {
       this.animations[name] = animationSheet.getPersonAnimation(name, speed);
     });
+
     this.stand(DIRECTIONS.DOWN);
   }
 
@@ -55,7 +58,6 @@ export default class Body {
       this.lastTime = time;
       return;
     }
-    console.log(this.velocity.x);
     this.x += (time - this.lastTime) * (this.velocity.x / 1000);
     this.y += (time - this.lastTime) * (this.velocity.y / 1000);
     this.lastTime = time;

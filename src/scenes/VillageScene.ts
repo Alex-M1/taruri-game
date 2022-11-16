@@ -1,5 +1,5 @@
 import { ImageNames } from '../constants/images';
-import Game from '../Engine/Game';
+import Game from '../Engine/game/Game';
 import Scene from '../Engine/scene/Scene';
 import SpriteSheet from '../Engine/sprites/SpriteSheet';
 import mapData from '../assets/tilemaps/village.json';
@@ -57,6 +57,7 @@ export default class VillageScene extends Scene {
   init(): void {
     super.init();
     this.map = this.game.screen.createTileMap('level1', mapData, [this.watertiles, this.basetiles, this.tilesAddWork]);
+
     this.mainCamera = new Camera({
       width: this.game.screen.width,
       height: this.game.screen.height,

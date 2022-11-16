@@ -1,45 +1,34 @@
-import { IS_ENV } from '../constants/constants';
-import Loader from './scene/Loader';
-import Camera from './scene/Camera';
-import Sprite from './sprites/Sprite';
-import SpriteSheet from './sprites/SpriteSheet';
-import { Tiled } from './sprites/spritesType';
-import TileMap from './sprites/TileMap';
+import { IS_ENV } from '../../constants/constants';
+import Camera from '../scene/Camera';
+import Sprite from '../sprites/Sprite';
+import SpriteSheet from '../sprites/SpriteSheet';
+import { Tiled } from '../sprites/spritesType';
+import TileMap from '../sprites/TileMap';
+import Game from './Game';
 
 export default class Screen {
   readonly width: number;
   readonly height: number;
   readonly canvas: HTMLCanvasElement;
   readonly ctx: CanvasRenderingContext2D;
-  images: Record<string, HTMLImageElement>;
-  isImagesLoaded: boolean;
   camera: Camera | null;
   isCameraSet: boolean;
+  game: Game;
 
-  constructor(width: number, height: number) {
+  constructor(width: number, height: number, game: Game) {
     this.width = width;
     this.height = height;
     this.canvas = this.createCanvas();
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    this.images = {};
-    this.isImagesLoaded = false;
-
     this.camera = null;
     this.isCameraSet = false;
+    this.game = game;
   }
 
   setCamera(camera: Camera) {
     this.camera = camera;
     this.isCameraSet = true;
-  }
-
-  loadImages(imagefiles: any) {
-    const loader = new Loader(imagefiles);
-    loader.load().then(() => {
-      this.images = Object.assign(this.images, loader.images);
-      this.isImagesLoaded = true;
-    });
   }
 
   private createCanvas() {
@@ -68,7 +57,7 @@ export default class Screen {
   }
 
   drawImage(x: number, y: number, imageName: string) {
-    this.ctx.drawImage(this.images[imageName], x, y);
+    this.ctx.drawImage(this.game.loader.getImage(imageName) as HTMLImageElement, x, y);
   }
 
   drawSprite(sprite: Sprite) {
@@ -95,7 +84,7 @@ export default class Screen {
     const height = Math.min(this.height, spriteY + sprite.height) - Math.max(0, spriteY);
 
     this.ctx.drawImage(
-      this.images[sprite.imageName],
+      this.game.loader.getImage(sprite.imageName) as HTMLImageElement,
       sourceX,
       sourceY,
       width,
@@ -115,6 +104,7 @@ export default class Screen {
 
     const tilemapCtx = mapImage.getContext('2d');
     const hitBoxes: Tiled.Hitboxes[] = [];
+
     let row: number, col: number;
     mapData.layers.forEach((layer) => {
       if (layer.type === 'tilelayer') {
@@ -131,7 +121,7 @@ export default class Screen {
             )) as SpriteSheet;
 
             tilemapCtx?.drawImage(
-              this.images[currentTileset.imageName],
+              this.game.loader.getImage(currentTileset.imageName) as HTMLImageElement,
               currentTileset.getSourceX(tileIndex - mapData.tilesets[tilemap].firstgid + 1),
               currentTileset.getSourceY(tileIndex - mapData.tilesets[tilemap].firstgid + 1),
               mapData.tilewidth,
@@ -159,7 +149,11 @@ export default class Screen {
         })));
       }
     });
-    this.images[name] = mapImage;
+
+    const image = new Image();
+    image.src = mapImage.toDataURL();
+
+    this.game.loader.setImage({ name, image });
 
     return new TileMap({
       imageName: name,

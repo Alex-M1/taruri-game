@@ -8,15 +8,15 @@ export enum ImageNames {
   addwork = 'addwork'
 }
 
-export const IMAGES_PATH = {
-  cross_menu: '/src/assets/sprites/cross_menu.svg',
-  menu_bg: '/src/assets/sprites/menu_bg.svg',
-  menu_button: '/src/assets/sprites/menu_button.svg',
-  basetiles: '/src/assets/sprites/basetiles.png',
-  character_sprites: '/src/assets/sprites/character_sprites.png',
-  water: '/src/assets/sprites/water.png',
-  addwork: '/src/assets/sprites/addwork.png',
-};
+export enum ImagePaths {
+  cross_menu = '/src/assets/sprites/cross_menu.svg',
+  menu_bg = '/src/assets/sprites/menu_bg.svg',
+  menu_button = '/src/assets/sprites/menu_button.svg',
+  basetiles = '/src/assets/sprites/basetiles.png',
+  character_sprites = '/src/assets/sprites/character_sprites.png',
+  water = '/src/assets/sprites/water.png',
+  addwork = '/src/assets/sprites/addwork.png',
+}
 
 export enum PersonAnimateLayers {
   spell_up = 'spell_up',
@@ -33,4 +33,5 @@ export enum PersonAnimateLayers {
   walk_right = 'walk_right',
 }
 
+export const IMAGE_NAME_ARR = <Array<ImageNames>>Object.keys(ImageNames);
 export const PERSON_ANIMATIONS_ARR = <Array<PersonAnimateLayers>>Object.keys(PersonAnimateLayers);

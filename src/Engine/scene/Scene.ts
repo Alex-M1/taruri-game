@@ -1,4 +1,4 @@
-import Game from '../Game';
+import Game from '../game/Game';
 
 export default class Scene {
   game: Game;
@@ -13,8 +13,7 @@ export default class Scene {
     this.name = name;
   }
 
-  init() {
-  }
+  init() { }
 
   render(time: number) { }
 }

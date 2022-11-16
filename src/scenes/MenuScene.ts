@@ -1,6 +1,6 @@
 import { ImageNames } from '../constants/images';
 import { SceneNames } from '../constants/scenes';
-import Game from '../Engine/Game';
+import Game from '../Engine/game/Game';
 import Scene from '../Engine/scene/Scene';
 
 export default class MenuScene extends Scene {

@@ -50,6 +50,7 @@ export default class SpriteAnimation extends Sprite {
   }
 
   stop() {
+    this.setFrame(0);
     this.running = false;
   }
 

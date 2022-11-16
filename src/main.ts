@@ -1,5 +1,5 @@
 // import { invoke } from '@tauri-apps/api/tauri';
-import Game from './Engine/Game';
+import Game from './Engine/game/Game';
 import LoadingScene from './scenes/LoadingScene';
 import MenuScene from './scenes/MenuScene';
 import VillageScene from './scenes/VillageScene';
