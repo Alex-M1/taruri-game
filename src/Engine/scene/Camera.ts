@@ -35,14 +35,11 @@ export default class Camera {
     if (this.watchObject) {
       if (this.obj.x > (this.x + this.width - this.scrollEdge)) {
         this.x = Math.min(this.limitX, this.obj.x - this.width + this.scrollEdge);
-      }
-      if (this.obj.x < (this.x + this.scrollEdge)) {
+      } else if (this.obj.x < (this.x + this.scrollEdge)) {
         this.x = Math.max(0, this.obj.x - this.scrollEdge);
-      }
-      if (this.obj.y > (this.y + this.height - this.scrollEdge)) {
+      } else if (this.obj.y > (this.y + this.height - this.scrollEdge)) {
         this.y = Math.min(this.limitY, this.obj.y - this.height + this.scrollEdge);
-      }
-      if (this.obj.y < (this.y + this.scrollEdge)) {
+      } else if (this.obj.y < (this.y + this.scrollEdge)) {
         this.y = Math.max(0, this.obj.y - this.scrollEdge);
       }
     }

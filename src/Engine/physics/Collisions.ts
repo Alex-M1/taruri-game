@@ -31,7 +31,7 @@ export default class Collisions {
   }
 
   checkStatic(time: number) {
-    this.bodies.forEach((body) => {
+    this.bodies.forEach((body, i) => {
       const oldX = body.x;
       const oldY = body.y;
       let { x } = body.obj;
@@ -95,10 +95,11 @@ export default class Collisions {
           }
         });
       }
-      body.x = x;
-      body.y = y;
-      body.obj.x = x;
-      body.obj.y = y;
+
+      this.bodies[i].x = x;
+      this.bodies[i].y = y;
+      this.bodies[i].obj.x = x;
+      this.bodies[i].obj.y = y;
     });
   }
 }
