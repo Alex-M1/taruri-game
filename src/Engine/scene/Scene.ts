@@ -13,8 +13,7 @@ export default class Scene {
     this.name = name;
   }
 
-  init() {
-  }
+  init() { }
 
   render(time: number) { }
 }
