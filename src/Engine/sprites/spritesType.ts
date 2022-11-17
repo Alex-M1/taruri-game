@@ -30,7 +30,7 @@ export interface SpriteSheetConstructor {
 }
 
 export interface TileMapConstructor extends SpriteConstructor {
-  hitBoxes: any
+  hitBoxes: Tiled.Hitboxes[]
 }
 
 export declare module Tiled {
@@ -95,6 +95,7 @@ export declare module Tiled {
     width: number;
   }
   export interface Hitboxes {
+    name: string;
     x1: number;
     x2: number;
     y1: number;

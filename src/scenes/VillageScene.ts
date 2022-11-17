@@ -67,13 +67,15 @@ export default class VillageScene extends Scene {
     this.mainCamera.watch(this.player);
     this.game.screen.setCamera(this.mainCamera);
 
-    this.collisions.addStaticShapes(mapData);
+    this.collisions.addStaticShapes(mapData, 'collisions');
     this.collisions.addKinematicBody(this.player);
+    // console.log(this.map?.getHitboxesByName('church'));
+    // console.log(this.player);
   }
 
   update(time: number) {
     this.player.update(time);
-    this.mainCamera?.update(time);
+    this.mainCamera?.update();
   }
 
   render(time: number): void {

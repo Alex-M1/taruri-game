@@ -142,6 +142,7 @@ export default class Screen {
       }
       if (layer.type === 'objectgroup') {
         hitBoxes.push(...layer.objects.map((obj) => ({
+          name: obj.name,
           x1: obj.x,
           x2: obj.x + obj.width,
           y1: obj.y,

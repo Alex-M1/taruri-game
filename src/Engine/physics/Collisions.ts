@@ -10,9 +10,9 @@ export default class Collisions {
     this.bodies = [];
   }
 
-  addStaticShapes(data: Tiled.TileMapType) {
+  addStaticShapes(data: Tiled.TileMapType, staticObjectName: string) {
     data.layers.forEach((layer) => {
-      if (layer.type === 'objectgroup') {
+      if (layer.name === staticObjectName) {
         this.staticShapes.push(...layer.objects);
       }
     });
@@ -26,11 +26,11 @@ export default class Collisions {
     });
   }
 
-  update(time: number) {
-    this.checkStatic(time);
+  update() {
+    this.checkStatic();
   }
 
-  checkStatic(time: number) {
+  checkStatic() {
     this.bodies.forEach((body, i) => {
       const oldX = body.x;
       const oldY = body.y;

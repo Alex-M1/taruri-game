@@ -31,7 +31,7 @@ export default class Camera {
     this.obj = obj;
   }
 
-  update(time: number) {
+  update() {
     if (this.watchObject) {
       if (this.obj.x > (this.x + this.width - this.scrollEdge)) {
         this.x = Math.min(this.limitX, this.obj.x - this.width + this.scrollEdge);

@@ -13,7 +13,6 @@ export default class Player extends Body {
   }
 
   update(time: number): void {
-    console.log(this.velocity.direction);
     if (this.control.up) {
       this.walk(DIRECTIONS.UP);
     } else if (this.control.down) {
